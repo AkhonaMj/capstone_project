@@ -2,6 +2,7 @@ import { compare } from "bcrypt";
 import { loginUserDb } from "../model/userDb.js";
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
+import { log } from "console";
 config();
 
 const checkUser = async (req, res, next) => {

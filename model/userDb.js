@@ -23,10 +23,10 @@ const getUserDb = async (id) => {
     }
 }
 
-const registerUserDb = async (firstName, lastName, userRole, emailAdd, userProfile, hashedP) => {
+const registerUserDb = async (firstName, lastName, userRole, emailAdd, hashedP, userProfile) => {  
     try {
         await pool.query("INSERT INTO users(firstName, lastName, userRole, emailAdd, password, userProfile) VALUES(?,?,?,?,?,?)", 
-            [firstName, lastName, userRole, emailAdd, userProfile, hashedP]);
+            [firstName, lastName, userRole, emailAdd, hashedP, userProfile]);
     } catch (error) {
         console.error("Error registering user:", error);
         throw { status: 500, message: "Internal Server Error" };
@@ -35,7 +35,7 @@ const registerUserDb = async (firstName, lastName, userRole, emailAdd, userProfi
 
 const updateUserDb = async (firstName, lastName, userRole, emailAdd, passsword, userProfile, id) => {
     try {
-        let [result] = await pool.query("UPDATE users SET firstName=?, lastName=?, userAge=?, emailAdd=?, password=?, userProfile=? WHERE userId=?", 
+        let [result] = await pool.query("UPDATE users SET firstName=?, lastName=?, userRole=?, emailAdd=?, password=?, userProfile=? WHERE userId=?", 
             [firstName, lastName, userRole, emailAdd, passsword, userProfile, id]);
         if (result.affectedRows === 0) {
             throw { status: 404, message: "User Not Found" };
@@ -48,13 +48,14 @@ const updateUserDb = async (firstName, lastName, userRole, emailAdd, passsword, 
 
 
 const loginUserDb = async (emailAdd) => {
-    try {
+   try {
         let [[{password}]] = await pool.query("SELECT * FROM users WHERE emailAdd=?", [emailAdd]);
         if (password.length === 0) {
             throw { status: 404, message: "User Not Found" };
         }
         return password;
-    } catch (error) {
+    }
+     catch (error) {
         console.error("Error retrieving user by Email:", error);
         throw error.status ? error : { status: 500, message: "Internal Server Error" };
     }
@@ -71,7 +72,6 @@ const deleteUserDb = async (id) => {
         throw error.status ? error : { status: 500, message: "Internal Server Error" };
     }
 }
-
 
 
 
