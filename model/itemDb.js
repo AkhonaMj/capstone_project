@@ -42,7 +42,7 @@ const removeItemDb = async (id) => {
     try {
         await pool.query("DELETE FROM items WHERE itemId=?", [id]);
     } catch (error) {
-        console.error('Error deleting product:', error);
+        console.error('Error deleting item:', error);
         throw error;
     }
 };

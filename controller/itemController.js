@@ -5,7 +5,7 @@ const getItems = async (req, res) => {
       res.status(200).json(await getItemsDb())
     } catch (error) {
       console.error(error);
-      res.status(500).send("Error retrieving products")
+      res.status(500).send("Error retrieving items")
     }
   }
 
@@ -37,7 +37,7 @@ const editItem = async (req, res) => {
     try {
         let { itemName, amount, category, itemUrl, availability } = req.body;
         await editItemDb(itemName, amount, category, itemUrl, availability, req.params.id);
-        res.status(200).json({ message: "Product updated successfully" });
+        res.status(200).json({ message: "Item updated successfully" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Error updating item" });
