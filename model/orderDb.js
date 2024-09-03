@@ -33,9 +33,9 @@ const getOrderByUserDb = async (id) => {
 }
 
 
-const addOrderDb = async (userId, itemId, bookingDate, bookingTime, quantity, totalPrice) => {
+const addOrderDb = async (userId, itemId, bookingDate, bookingTime,  totalPrice) => {
     try {
-        await pool.query("INSERT INTO orders(userId, itemId, bookingDate, bookingTime, quantity, totalPrice) VALUES(?,?,?,?,?)", [userId, itemId, bookingDate, bookingTime, quantity, totalPrice]);
+        await pool.query("INSERT INTO orders(userId, itemId, bookingDate, bookingTime, totalPrice) VALUES(?,?,?,?,?)", [userId, itemId, bookingDate, bookingTime, totalPrice]);
     } catch (error) {
         console.error('Error adding order:', error);
         throw error;
@@ -53,9 +53,9 @@ const deleteOrderDb = async (id) => {
 };
 
 
-const updateOrderDb = async (userId, itemId, bookingDate, bookingTime, quantity, totalPrice, id) => {
+const updateOrderDb = async (userId, itemId, bookingDate, bookingTime, totalPrice, id) => {
     try {
-        await pool.query("UPDATE items SET userId=?, itemId=?, bookingDate=?, bookingTime=?, quantity=?, totalPrice=? WHERE orderId=?", [userId, itemId, bookingDate, bookingTime, quantity, totalPrice, id]);
+        await pool.query("UPDATE  orders SET userId=?, itemId=?, bookingDate=?, bookingTime=?, totalPrice=? WHERE orderId=?", [userId, itemId, bookingDate, bookingTime, totalPrice, id]);
     } catch (error) {
         console.error('Error updating order:', error);
         throw error;

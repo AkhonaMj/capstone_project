@@ -31,8 +31,8 @@ const getOrderByUserId = async (req, res) => {
 }
 const addOrder = async (req, res) => {
     try {
-        const { userId, itemId, bookingDate, bookingTime, quantity, totalPrice } = req.body;
-        await addOrderDb( userId, itemId, bookingDate, bookingTime, quantity, totalPrice );
+        const { userId, itemId, bookingDate, bookingTime, totalPrice } = req.body;
+        await addOrderDb( userId, itemId, bookingDate, bookingTime, totalPrice );
         if (!res.headersSent) {
             res.status(201).send('Order added successfully');
         }
@@ -57,8 +57,8 @@ const deleteOrder = async (req, res) => {
   
 const updateOrder = async (req, res) => {
     try {
-        let {  userId, itemId, bookingDate, bookingTime, quantity, totalPrice } = req.body;
-        await updateOrderDb( userId, itemId, bookingDate, bookingTime, quantity, totalPrice,  req.params.id);
+        let {  userId, itemId, bookingDate, bookingTime, totalPrice } = req.body;
+        await updateOrderDb( userId, itemId, bookingDate, bookingTime, totalPrice,  req.params.id);
         res.status(200).json({ message: "Order updated successfully" });
     } catch (error) {
         console.error(error);

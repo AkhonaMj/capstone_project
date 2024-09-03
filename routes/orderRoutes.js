@@ -7,8 +7,8 @@ const router = express.Router()
 
 router.get("/", getOrders)
 router.get("/:id", getOrder)
-router.get("/getOrderByUser/:id", getOrderByUserId)
-router.post("/add", addOrder)
+router.get("/getidOrderByUser/:", getOrderByUserId)
+router.post("/addOrder", addOrder)
 router.delete("/delete/:id", deleteOrder)
 router.patch("/update/:id", updateOrder)
 
