@@ -1,11 +1,25 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> 
-    <router-link to="/about">About</router-link>
-
-  </nav>
+  <NavbarComp/>
   <router-view/>
+  <FooterComp/>
+
 </template>
+
+<script>
+import NavbarComp from "../src/components/NavbarComp.vue"
+// import FooterComp from './components/FooterComp.vue';
+// import Spinner from './components/SpinnerComp.vue'; // Adjust path based on your project structure
+
+
+export default {
+  components:{
+    NavbarComp
+    // FooterComp,
+    // Spinner
+  }
+  
+}
+</script>
 
 <style>
 #app {
