@@ -1,4 +1,4 @@
-<template>
+<template class="body">
   <div class="home">
     <div class="header">
       <h1 class="bolder">Bells' Beauty Boutique</h1>
@@ -28,7 +28,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+button{
+  background-color: #f4acb7;
+  
+
+}
+
 .home {
   max-width: 800px;
   margin: 0 auto;
@@ -37,7 +43,6 @@ export default {
 }
 
 .header {
-  background-color: #f7f7f7;
   padding: 20px;
   text-align: center;
 }
@@ -45,7 +50,7 @@ export default {
 .bolder {
   font-weight: bold;
   font-size: 24px;
-  color: #333;
+  color: black;
 }
 
 .main {
@@ -55,17 +60,6 @@ export default {
   padding: 20px;
 }
 
-.image-container {
-  width: 40%;
-  margin: 0 20px;
-}
-
-img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
 
 .welcome-text-container {
   width: 60%;
@@ -74,11 +68,13 @@ img {
 
 .welcome-text {
   font-size: 48px;
-  color: #666;
+  color: black;
   font-weight: bold;
 }
 button{
   width: 170px;
   height: 50px;
+  margin: 50px;
+  margin-left: 60px;
 }
 </style>
