@@ -38,18 +38,18 @@
     height: 80px;
   }
   .nav-button {
-    background-color: #f4acb7;
-    border: 1px solid #ddd;
-    padding: 15px 25px;
+    background-color: #a53860;
+    border:none;
+    padding: 10px 15px;
+    margin: 20px 10px;
     font-size: 16px;
     font-weight: bold;
     color: #333;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 300px;
     transition: background-color 0.2s ease-in-out;
   }
   .nav-button:hover {
     background-color: #f5f5f5;
-    color: #aa33b7;
   }
   </style>

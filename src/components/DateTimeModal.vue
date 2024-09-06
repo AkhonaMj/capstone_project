@@ -10,7 +10,6 @@
               <button @click="showModal = false" class="btn-close"></button>
             </div>
             <div class="modal-body">
-              <!-- Datepicker with adjusted size -->
               <div class="datepicker-container">
                 <Datepicker v-model="date" />
               </div>
@@ -20,7 +19,7 @@
             </div>
             <div class="modal-footer">
               <button @click="showModal = false" class="btn btn-secondary">Close</button>
-              <button @click="saveDateTime" class="btn btn-primary">Save</button>
+              <button @click="insertData()" class="btn btn-primary">Save</button>
             </div>
           </div>
         </div>
@@ -34,7 +33,9 @@ import { ref } from 'vue';
 import Datepicker from 'vue3-datepicker';
 
 export default {
-  components: { Datepicker },
+  components: { Datepicker
+
+   },
   setup() {
     const showModal = ref(false);
     const date = ref(new Date());
@@ -44,6 +45,8 @@ export default {
     for (let i = 8; i <= 17; i++) {
       hours.value.push(i);
     }
+
+    
     const saveDateTime = () => {
       console.log('Date:', date.value);
       console.log('Time:', time.value);
@@ -52,10 +55,23 @@ export default {
 
     return { showModal, date, time, hours, saveDateTime };
   },
+
+  methods:{
+
+    insertData(){
+        this.$store.dispatch('addOrder', {bookingDate:this.date,bookingTime:this.time });
+        
+        // this.showModal.value = false;
+      }
+    
+
+    
+
+  }
 };
 </script>
-
 <style scoped>
+/* Modal Overlay */
 .modal {
   position: fixed;
   top: 0;
@@ -68,11 +84,14 @@ export default {
   align-items: center;
 }
 
+/* Modal Dialog */
 .modal-dialog {
   max-width: 500px;
   margin: 1rem;
+  width: 100%; /* Ensure modal uses full width on smaller screens */
 }
 
+/* Modal Content */
 .modal-content {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -80,36 +99,72 @@ export default {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Modal Header */
 .modal-header {
   padding: 1rem;
   border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+/* Modal Title */
 .modal-title {
   margin-bottom: 0;
+  font-size: 1.25rem; /* Adjust font size */
 }
 
+/* Modal Body */
 .modal-body {
   padding: 1rem;
 }
 
+/* Modal Footer */
 .modal-footer {
   padding: 1rem;
   border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: flex-end;
 }
 
-/* Adjust the Datepicker size using deep selectors */
-::v-deep .datepicker-container .vue3-datepicker {
-  max-width: 200px; /* Limit the width of the date picker */
-  margin: 0 auto; /* Center it */
-  transform: scale(0.8); /* Scale down the date picker */
+/* Datepicker Container */
+.datepicker-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem; /* Space below the date picker */
+}
+
+/* Datepicker Specific Styles */
+::v-deep .vue3-datepicker {
+  width: 100%; /* Full width for better alignment */
+  max-width: 400px; /* Max width for larger screens */
 }
 
 ::v-deep .vue3-datepicker__calendar {
-  font-size: 12px; /* Adjust font size for smaller date picker */
+  font-size: 14px; /* Adjust font size for readability */
 }
 
 ::v-deep .vue3-datepicker__day {
-  padding: 0.5rem; /* Adjust day cell padding */
+  padding: 0.5rem; /* Padding for day cells */
+}
+
+::v-deep .vue3-datepicker__day--selected {
+  background-color: #a53860; /* Highlight selected date */
+  color: #fff; /* Text color for selected date */
+}
+
+::v-deep .vue3-datepicker__day--today {
+  border: 1px solid #a53860; /* Border for today's date */
+}
+
+/* Form Select */
+.form-select {
+  width: 100%; /* Full width for better alignment */
+  margin-top: 1rem;
+}
+
+/* Button Styles */
+.btn {
+  margin: 0 0.5rem;
 }
 </style>

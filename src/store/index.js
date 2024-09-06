@@ -39,6 +39,8 @@ export default createStore({
         });
         
         const newOrder = await response.json();
+        console.log(newOrder);
+
         commit('addOrder', newOrder);
       } catch (error) {
         console.error("Error adding order:", error);
