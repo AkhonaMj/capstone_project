@@ -24,13 +24,13 @@ const getUserDb = async (id) => {
 }
 
 const registerUserDb = async (firstName, lastName, userRole, emailAdd, hashedP, userProfile) => {  
-    try {
+    // try {
         await pool.query("INSERT INTO users(firstName, lastName, userRole, emailAdd, password, userProfile) VALUES(?,?,?,?,?,?)", 
             [firstName, lastName, userRole, emailAdd, hashedP, userProfile]);
-    } catch (error) {
-        console.error("Error registering user:", error);
-        throw { status: 500, message: "Internal Server Error" };
-    }
+    // } catch (error) {
+    //     console.error("Error registering user:", error);
+    //     throw { status: 500, message: "Internal Server Error" };
+    // }
 }
 
 const updateUserDb = async (firstName, lastName, userRole, emailAdd, passsword, userProfile, id) => {

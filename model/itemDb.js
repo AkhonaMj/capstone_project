@@ -20,18 +20,18 @@ const getItemDb = async (itemId) => {
     }
 }
 
-const addItemDb = async (itemName, amount, category, itemUrl, availability) => {
+const addItemDb = async (itemName, amount, category, itemUrl) => {
     try {
-        await pool.query("INSERT INTO items(itemName, amount, category, itemUrl, availability) VALUES(?,?,?,?,?)", [itemName, amount, category, itemUrl, availability]);
+        await pool.query("INSERT INTO items(itemName, amount, category, itemUrl) VALUES(?,?,?,?)", [itemName, amount, category, itemUrl]);
     } catch (error) {
         console.error('Error adding item:', error);
         throw error;
     }
 }
 
-const editItemDb = async (itemName, amount, category, itemUrl, availability, id) => {
+const editItemDb = async (itemName, amount, category, itemUrl, id) => {
     try {
-        await pool.query("UPDATE items SET itemName=?, amount=?, category=?, itemUrl=?, availability=? WHERE itemId=?", [itemName, amount, category, itemUrl, availability, id]);
+        await pool.query("UPDATE items SET itemName=?, amount=?, category=?, itemUrl=? WHERE itemId=?", [itemName, amount, category, itemUrl, id]);
     } catch (error) {
         console.error('Error updating item:', error);
         throw error;

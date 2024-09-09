@@ -20,8 +20,8 @@ const getItem = async (req, res) => {
   
 const addItem = async (req, res) => {
     try {
-        const { itemName, amount, category, itemUrl, availability } = req.body;
-        await addItemDb(itemName, amount, category, itemUrl, availability );
+        const { itemName, amount, category, itemUrl } = req.body;
+        await addItemDb(itemName, amount, category, itemUrl);
         if (!res.headersSent) {
             res.status(201).send('Item added successfully');
         }
@@ -35,8 +35,8 @@ const addItem = async (req, res) => {
 
 const editItem = async (req, res) => {
     try {
-        let { itemName, amount, category, itemUrl, availability } = req.body;
-        await editItemDb(itemName, amount, category, itemUrl, availability, req.params.id);
+        let { itemName, amount, category, itemUrl } = req.body;
+        await editItemDb(itemName, amount, category, itemUrl, req.params.id);
         res.status(200).json({ message: "Item updated successfully" });
     } catch (error) {
         console.error(error);
