@@ -6,15 +6,15 @@
 </template>
 
 <script>
-import NavbarComp from "../src/components/NavbarComp.vue"
-// import FooterComp from './components/FooterComp.vue';
+import NavbarComp from "../src/components/NavbarComp.vue";
+import FooterComp from './components/FooterComp.vue';
 // import Spinner from './components/SpinnerComp.vue'; // Adjust path based on your project structure
 
 
 export default {
   components:{
-    NavbarComp
-    // FooterComp,
+    NavbarComp,
+    FooterComp
     // Spinner
   }
   

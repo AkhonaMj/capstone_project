@@ -1,4 +1,4 @@
-<template lang="">
+<template scoped>
     <div>
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
@@ -50,6 +50,6 @@
     transition: background-color 0.2s ease-in-out;
   }
   .nav-button:hover {
-    background-color: #f5f5f5;
+    background-color: #FFE8D6;
   }
   </style>

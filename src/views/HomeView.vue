@@ -16,8 +16,8 @@
     </div>
    
     <div>
-      <button><router-link to="/services" class="">Our services</router-link></button>
-      <button><router-link to="/login" class="">Login</router-link> </button>
+      <button><router-link to="/services" class="link">Our services</router-link></button>
+      <button><router-link to="/login" class="link">Login</router-link> </button>
     </div>
   </div>
 </template>
@@ -51,7 +51,7 @@ button{
     
 }
 button:hover {
-    background-color: #f5f5f5;
+    background-color: #ddbea966;
 }
 
 img{
@@ -105,5 +105,9 @@ button{
   height: 50px;
   margin: 50px;
   margin-left: 60px;
+}
+.link{
+  text-decoration: none;
+  color: black;
 }
 </style>

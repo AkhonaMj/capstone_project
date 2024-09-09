@@ -15,16 +15,32 @@
 </template>
 
 <script>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
+import axios from 'axios';
 
 export default {
-  setup() {
-    const store = useStore();
-
-    const orders = computed(() => store.state.orders);
-
-    return { orders };
+  data() {
+    return {
+      orders: []
+    };
+  },
+  methods: {
+    async fetchOrders() {
+      try {
+        const token = localStorage.getItem('token');
+        const userId = 1; // Fetch the user ID from a store or context
+        const response = await axios.get(`/orders/getOrderByUser/${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        this.orders = response.data;
+      } catch (error) {
+        console.error('Failed to fetch orders:', error);
+      }
+    }
+  },
+  mounted() {
+    this.fetchOrders();
   }
 };
 </script>

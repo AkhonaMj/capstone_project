@@ -1,9 +1,15 @@
+/*eslint-disable */
 import { createStore } from 'vuex';
-
+import axios from 'axios';
+import {useCookies} from 'vue3-cookies'
+import router from '@/router';
+const {cookies} = useCookies()
+axios.defaults.headers = cookies.get('token')
 export default createStore({
   state: {
     items: [],
-    orders: []
+    orders: [],
+    login:[]
   },
   getters: {},
   mutations: {
@@ -28,9 +34,10 @@ export default createStore({
       }
     },
     async addOrder({ commit }, order) {
+      console.log(order);
+      
       try {
-        // Assuming your API endpoint is: POST /orders/addOrder
-        const response = await fetch("https://capstone-project-bwdc.onrender.com/orders/addOrder", {
+        const response = await fetch("http://localhost:2001/orders/addOrder", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -45,7 +52,23 @@ export default createStore({
       } catch (error) {
         console.error("Error adding order:", error);
       }
-    }
+    },
+
+
+    // async register({commit}){
+    //   let 
+    // }
+
+    async loginUser({commit},info){
+      console.log(info)
+      let {data} = await axios.post("https://capstone-project-bwdc.onrender.com/users/login",info)
+      cookies.set('token',data.token)
+      if(data.token){
+        router.push({name: 'services'})
+        
+      }
+    },
+
   },
   modules: {}
 });

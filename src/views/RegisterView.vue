@@ -1,56 +1,68 @@
 <template>
-    <div class="register-page">
-      <h1>Register</h1>
-      <form @submit.prevent="register">
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" v-model="firstName" required>
+  <div class="register-page">
+    <h1>Register</h1>
+    <form @submit.prevent="registerUser">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" v-model="firstName" required />
   
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" v-model="lastName" required>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" v-model="lastName" required />
   
-        <label for="userRole">User Role:</label>
-        <select id="userRole" v-model="userRole" required>
-          <option value="">Select a role</option>
-          <option value="admin">Admin</option>
-          <option value="user">User</option>
-        </select>
+      <label for="userRole">User Role:</label>
+      <select id="userRole" v-model="userRole" required>
+        <option value="">Select a role</option>
+        <option value="admin">Admin</option>
+        <option value="user">User</option>
+      </select>
   
-        <label for="emailAdd">Email:</label>
-        <input type="email" id="emailAdd" v-model="emailAdd" required>
+      <label for="emailAdd">Email:</label>
+      <input type="email" id="emailAdd" v-model="emailAdd" required />
   
-        <label for="password">Password:</label>
-        <input type="password" id="password" v-model="password" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" v-model="password" required />
   
-        <button type="submit">Register</button>
-      </form>
-      <p>Already have an account? <router-link to="/login">Login here</router-link></p>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        firstName: '',
-        lastName: '',
-        userRole: '',
-        emailAdd: '',
-        password: ''
-      }
-    },
-    methods: {
-      register() {
-        console.log('Registration attempted with:', {
+      <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <router-link to="/login">Login here</router-link></p>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      firstName: '',
+      lastName: '',
+      userRole: '',
+      emailAdd: '',
+      password: ''
+    };
+  },
+  methods: {
+    async registerUser() {
+      try {
+        await axios.post('/users/register', {
           firstName: this.firstName,
           lastName: this.lastName,
           userRole: this.userRole,
           emailAdd: this.emailAdd,
           password: this.password
-        })
+        });
+        this.$router.push('/login'); // Redirect to login page
+      } catch (error) {
+        console.error('Registration failed:', error);
       }
     }
   }
-  </script>
+};
+</script>
+
+<style scoped>
+/* Styles are kept the same */
+</style>
+
   
   <style scoped>
   .register-page {

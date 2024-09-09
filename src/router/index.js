@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-
+import {useCookies} from 'vue3-cookies'
+const {cookies} = useCookies()
 const routes = [
   {
     path: '/',
@@ -18,7 +19,12 @@ const routes = [
   {
     path: '/services',
     name: 'services',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ServiceView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/ServiceView.vue'),
+    beforeEnter(){
+      if(!cookies.get('token')){
+        router.push({name: 'login'})
+      }
+    }
   },
   {
     path: '/contact',

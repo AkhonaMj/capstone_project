@@ -1,36 +1,46 @@
 <template>
-    <div class="login-page">
-      <h1>Login</h1>
-      <form @submit.prevent="login">
-        <label for="email">Email:</label>
-        <input type="email" id="email" v-model="email" required>
+  <div class="login-page">
+    <h1>Login</h1>
+    <form>
+      <label for="email">Email:</label>
+      <input type="email" id="email" v-model="emailAdd" required />
   
-        <label for="password">Password:</label>
-        <input type="password" id="password" v-model="password" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" v-model="password" required />
+      {{ console.log(emailAdd) }}
   
-        <button type="submit">Login</button>
-      </form>
-      <p>Don't have an account? <router-link to="/register">Register here</router-link></p>
-    </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        email: '',
-        password: ''
-      }
-    },
-    methods: {
-      login() {
-        // Add your login logic here
-        console.log('Login attempted with email:', this.email, 'and password:', this.password)
-      }
+      <button @click.prevent="loginUser()" type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <router-link to="/register">Register here</router-link></p>
+  </div>
+</template>
+
+
+<script>
+// import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+export default {
+  data() {
+    return {
+      emailAdd: '',
+      password: ''
+    };
+  },
+  setup() {
+    const router = useRouter();
+    return { router };
+  },
+  methods: {
+    loginUser(){
+      this.$store.dispatch('loginUser', {emailAdd:this.emailAdd,password:this.password})
     }
   }
-  </script>
-  
+};
+</script>
+
+
+
   <style scoped>
   .login-page {
     max-width: 300px;

@@ -6,7 +6,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Book</h5>
+              <h5 class="modal-title">Book {{ selectedService.itemName }}</h5>
               <button @click="showModal = false" class="btn-close"></button>
             </div>
             <div class="modal-body">
@@ -33,20 +33,19 @@ import { ref } from 'vue';
 import Datepicker from 'vue3-datepicker';
 
 export default {
-  components: { Datepicker
-
-   },
+  components: { Datepicker },
+  props:['selectedService'],
   setup() {
     const showModal = ref(false);
     const date = ref(new Date());
     const time = ref({ hours: 8, minutes: 0 });
+    // const selectedItem = this?.selectedService; // Add this ref to hold the item booked
 
     const hours = ref([]);
     for (let i = 8; i <= 17; i++) {
       hours.value.push(i);
     }
 
-    
     const saveDateTime = () => {
       console.log('Date:', date.value);
       console.log('Time:', time.value);
@@ -56,18 +55,17 @@ export default {
     return { showModal, date, time, hours, saveDateTime };
   },
 
-  methods:{
-
-    insertData(){
-        this.$store.dispatch('addOrder', {bookingDate:this.date,bookingTime:this.time });
-        
-        // this.showModal.value = false;
-      }
-    
-
-    
-
-  }
+  methods: {
+    insertData() {
+      this.$store.dispatch('addOrder', {
+        itemId:this.selectedService.itemId,
+        item: this.selectedService.itemName,
+        bookingDate: this.date,
+        bookingTime: this.time,
+        totalPrice :+this.selectedService.amount
+      });
+    },
+  },
 };
 </script>
 <style scoped>
