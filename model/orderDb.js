@@ -34,8 +34,11 @@ const getOrderByUserDb = async (id) => {
 
 
 const addOrderDb = async (userId, itemId, bookingDate, bookingTime,  totalPrice) => {
+    let time = bookingTime.hours+':'+bookingTime.minutes+'0'
+    console.log(time);
+    
     try {
-        await pool.query("INSERT INTO orders(userId, itemId, bookingDate, bookingTime, totalPrice) VALUES(?,?,?,?,?)", [userId, itemId, bookingDate, bookingTime, totalPrice]);
+        await pool.query("INSERT INTO orders(userId, itemId, bookingDate, bookingTime, totalPrice) VALUES(?,?,?,?,?)", [userId, itemId, bookingDate, time, totalPrice]);
     } catch (error) {
         console.error('Error adding order:', error);
         throw error;

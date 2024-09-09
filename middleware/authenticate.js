@@ -7,7 +7,7 @@ config();
 
 const checkUser = async (req, res, next) => {
   try {
-    const { emailAdd, password } = req.body; //destructuring
+    const { emailAdd, password, userId } = req.body; //destructuring
     console.log(password);
 
     let hashedPassword = await loginUserDb(emailAdd);
