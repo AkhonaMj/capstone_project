@@ -42,4 +42,22 @@ const checkUser = async (req, res, next) => {
   }
 };
 
-export { checkUser };
+const verifyAToken = (req,res,next)=>{
+  let {cookie} = req.headers
+  // checks if token exists first
+  let token = cookie && cookie.split('=')[1] // if there is a cookie, then we can split it
+  // console.log(token)
+  jwt.verify(token,process.env.SECRET_KEY,(err,decoded)=>{
+      if(err){
+          res.json({message:'Token is invalid'})
+          return
+      }
+      // req.body.username = decoded.username
+      req.body.userId = decoded.userId
+      //  console.log(decoded)
+      next()
+  })
+}
+
+
+export { checkUser, verifyAToken };

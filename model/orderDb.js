@@ -31,26 +31,18 @@ const getOrderByUserDb = async (id) => {
   } catch (error) {}
 };
 
-const addOrderDb = async (
-  userId,
-  itemId,
-  bookingDate,
-  bookingTime,
-  totalPrice
-) => {
-  let time = bookingTime.hours + ":" + bookingTime.minutes + "0";
-  console.log(time);
-
-  try {
-    await pool.query(
-      "INSERT INTO orders(userId, itemId, bookingDate, bookingTime, totalPrice) VALUES(?,?,?,?,?)",
-      [userId, itemId, bookingDate, bookingTime, totalPrice]
-    );
-  } catch (error) {
-    console.error("Error adding order:", error);
-    throw error;
-  }
-};
+const addOrderDb = async (userId, itemId, bookingDate, bookingTime, totalPrice) => {
+    try {
+      await pool.query(
+        "INSERT INTO orders(userId, itemId, bookingDate, bookingTime, totalPrice) VALUES(?,?,?,?,?)",
+        [userId, itemId, bookingDate, bookingTime, totalPrice]
+      );
+    } catch (error) {
+      console.error("Error adding order:", error);
+      throw error;
+    }
+  };
+  
 
 const deleteOrderDb = async (id) => {
   try {
