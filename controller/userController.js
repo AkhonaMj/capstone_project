@@ -25,19 +25,18 @@ const getUsers = async (req, res) => {
     }
   }
 
-
-const registerUser = async (req, res) => {
+  const registerUser = async (req, res) => {
     try {
-      let { firstName, lastName, userRole, emailAdd, passsword, userProfile } = req.body
-      const hashedP = await hash(passsword, 10)
-      await registerUserDb(firstName, lastName, userRole, emailAdd,  hashedP, userProfile)
-      res.status(201).send("User Added!")
+      let { firstName, lastName, userRole, emailAdd, password, userProfile } = req.body; 
+      const hashedP = await hash(password, 10);  
+      await registerUserDb(firstName, lastName, userRole, emailAdd, hashedP, userProfile);
+      res.status(201).send("User Added!");
     } catch (err) {
-      console.error(err)
-      res.status(500).send("Error registering user")
+      console.error(err);
+      res.status(500).send("Error registering user");
     }
-  }
-
+  };
+  
   
 const updateUser = async (req, res) => {
     try {
