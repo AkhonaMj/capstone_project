@@ -29,7 +29,7 @@ const checkUser = async (req, res, next) => {
           { emailAdd: emailAdd },process.env.SECRET_KEY, { expiresIn: "1h" }
         );
         console.log(token);
-        req.body.token = token;
+        req.body.token = token.userId;
 
         next();
         return;
