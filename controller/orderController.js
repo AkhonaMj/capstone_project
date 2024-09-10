@@ -29,20 +29,25 @@ const getOrderByUserId = async (req, res) => {
     }
     
 }
+
 const addOrder = async (req, res) => {
-    try {
-        const { userId, itemId, bookingDate, bookingTime, totalPrice } = req.body;
-        await addOrderDb( userId, itemId, bookingDate, bookingTime, totalPrice );
-        if (!res.headersSent) {
-            res.status(201).send('Order added successfully');
-        }
-    } catch (error) {
-        console.error('Error adding order:', error);
-        if (!res.headersSent) {
-            res.status(500).send('Error adding order');
-        }
-    }
-}
+  const { itemId, bookingDate, bookingTime, totalPrice } = req.body;
+  const userId = req.userId; // Get userId from the verified token
+
+  if (!userId) {
+    res.status(401).send("User is not authenticated");
+    return;
+  }
+
+  try {
+    await addOrderDb(userId, itemId, bookingDate, bookingTime, totalPrice);
+    res.status(201).send("Order added successfully");
+  } catch (error) {
+    console.error("Error adding order:", error);
+    res.status(500).send("Failed to add order");
+  }
+};
+
 
 const deleteOrder = async (req, res) => {
     try {

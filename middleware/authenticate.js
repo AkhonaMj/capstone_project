@@ -7,30 +7,31 @@ config();
 
 const checkUser = async (req, res, next) => {
   try {
-    const { emailAdd, password, userId } = req.body; //destructuring
+    const { emailAdd, password } = req.body; // Destructuring
     console.log(password);
 
-    let hashedPassword = await loginUserDb(emailAdd);
-    console.log(hashedPassword);
-
-    if (!hashedPassword) {
+    let user = await loginUserDb(emailAdd); // Assume this returns user object with `userId` and `hashedPassword`
+    
+    if (!user) {
       res.status(404).send("User not found");
       return;
     }
 
-    compare(password, hashedPassword, (err, result) => {
+    compare(password, user.hashedPassword, (err, result) => {
       if (err) {
         res.status(500).send("Internal Server Error");
         return;
       }
 
-      if (result == true) {
+      if (result === true) {
         let token = jwt.sign(
-          { emailAdd: emailAdd },process.env.SECRET_KEY, { expiresIn: "1h" }
+          { userId: user.userId, emailAdd: user.emailAdd }, // Include userId in the payload
+          process.env.SECRET_KEY,
+          { expiresIn: "1h" }
         );
         console.log(token);
-        req.body.token = token.userId;
-
+        res.cookie('token', token, { httpOnly: true }); // Send the token in a cookie
+        req.userId = user.userId; // Save userId to request object
         next();
         return;
       }
@@ -42,22 +43,25 @@ const checkUser = async (req, res, next) => {
   }
 };
 
-const verifyAToken = (req,res,next)=>{
-  let {cookie} = req.headers
-  // checks if token exists first
-  let token = cookie && cookie.split('=')[1] // if there is a cookie, then we can split it
-  // console.log(token)
-  jwt.verify(token,process.env.SECRET_KEY,(err,decoded)=>{
-      if(err){
-          res.json({message:'Token is invalid'})
-          return
-      }
-      // req.body.username = decoded.username
-      req.body.userId = decoded.userId
-      //  console.log(decoded)
-      next()
-  })
-}
+const verifyAToken = (req, res, next) => {
+  let { cookie } = req.headers;
+  let token = cookie && cookie.split('=')[1];
+  
+  if (!token) {
+    res.status(401).json({ message: 'Token is missing' });
+    return;
+  }
+
+  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+    if (err) {
+      res.status(403).json({ message: 'Token is invalid' });
+      return;
+    }
+    
+    req.userId = decoded.userId; // Store userId in request object
+    next();
+  });
+};
 
 
 export { checkUser, verifyAToken };
