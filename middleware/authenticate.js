@@ -25,13 +25,13 @@ const checkUser = async (req, res, next) => {
 
       if (result === true) {
         let token = jwt.sign(
-          { userId: user.userId, emailAdd: user.emailAdd }, // Include userId in the payload
+          { userId: user.userId, emailAdd: user.emailAdd }, 
           process.env.SECRET_KEY,
           { expiresIn: "1h" }
         );
         console.log(token);
-        res.cookie('token', token, { httpOnly: true }); // Send the token in a cookie
-        req.userId = user.userId; // Save userId to request object
+        res.cookie('token', token, { httpOnly: true }); 
+        req.userId = user.userId; 
         next();
         return;
       }
