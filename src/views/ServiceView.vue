@@ -2,8 +2,10 @@
   <div>
     <section class="bsb-timeline-2 py-5 py-xl-8">
       <div class="container custom-padding-top">
+        <!-- Search and Sort Controls -->
         <div class="row mb-4 justify-content-center">
           <div class="col-md-6">
+            <!-- Search Input -->
             <input
               type="text"
               class="form-control mb-3"
@@ -12,6 +14,7 @@
             />
           </div>
           <div class="col-md-4">
+            <!-- Sort Dropdown -->
             <select class="form-select" v-model="sortOrder" @change="sortItems">
               <option value="asc">Sort by amount: Low to High</option>
               <option value="desc">Sort by amount: High to Low</option>
@@ -19,6 +22,7 @@
           </div>
         </div>
 
+        <!-- Services Section -->
         <div class="row justify-content-center">
           <div class="services text-center">
             <h1 class="services-header">Our Services</h1>
@@ -37,7 +41,10 @@
                   <div class="card-body">
                     <h2 class="card-title">{{ item.itemName }}</h2>
                     <p class="card-amount">amount: {{ item.amount }}</p>
+                    <!-- Pass the selected item to the DateTimeModal component -->
                     <DateTimeModal :selectedService="item" />
+                    <router-link :to="{ name: 'singleItem', params: { id: item.itemId } }">View More</router-link>
+
                   </div>
                 </div>
               </div>
@@ -58,22 +65,23 @@ export default {
   },
   data() {
     return {
-      searchQuery: '',
-      sortOrder: 'asc'
+      searchQuery: '', // For search functionality
+      sortOrder: 'asc', // For sorting functionality
     };
   },
   computed: {
+    // Fetch items from Vuex store
     items() {
       return this.$store.state.items;
     },
-    loggedIn() {
-      return this.$store.state.loggedIn;
-    },
+    // Filtered and sorted items based on search query and sort order
     filteredAndSortedItems() {
+      // Filter items by name based on searchQuery
       let filteredItems = this.items.filter((item) =>
         item.itemName.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
 
+      // Sort items by amount based on sortOrder
       if (this.sortOrder === 'asc') {
         filteredItems.sort((a, b) => a.amount - b.amount);
       } else if (this.sortOrder === 'desc') {
@@ -87,17 +95,15 @@ export default {
     getApiData() {
       this.$store.dispatch('getApiData');
     },
-    checkLoginStatus() {
-      this.$store.dispatch('checkLogin');
+    sortItems() {
+      // The computed property will react to this change and re-sort
     }
   },
   mounted() {
-    this.checkLoginStatus(); // Check login status on mount
-    this.getApiData(); // Fetch items
+    this.getApiData();
   }
 };
 </script>
-
 <style scoped>
 /* Styles for Search and Sort Controls */
 .form-control,
@@ -193,4 +199,3 @@ export default {
   }
 }
 </style>
-

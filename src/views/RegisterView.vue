@@ -26,9 +26,9 @@
     <p>Already have an account? <router-link to="/login">Login here</router-link></p>
   </div>
 </template>
-
 <script>
-import axios from 'axios';
+// import axios from 'axios';
+import { useRouter } from 'vue-router'
 
 export default {
   data() {
@@ -40,30 +40,33 @@ export default {
       password: ''
     };
   },
+  setup() {
+    const router = useRouter();
+    return { router };
+  },
   methods: {
     async registerUser() {
       try {
-        await axios.post('/users/register', {
+        await this.$store.dispatch('register', {
           firstName: this.firstName,
           lastName: this.lastName,
           userRole: this.userRole,
           emailAdd: this.emailAdd,
           password: this.password
         });
+        // Handle successful registration
         this.$router.push('/login'); // Redirect to login page
       } catch (error) {
-        console.error('Registration failed:', error);
+        // Handle registration errors
+        console.error(error);
+        alert('Registration failed. Please try again.');
       }
     }
   }
-};
+}
 </script>
 
-<style scoped>
-/* Styles are kept the same */
-</style>
 
-  
   <style scoped>
   .register-page {
     max-width: 300px;

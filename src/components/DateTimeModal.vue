@@ -30,16 +30,16 @@
 
 <script>
 import { ref } from 'vue';
-import Datepicker from 'vue3-datepicker';
+import Datepicker from 'vue3-datepicker'
 
 export default {
   components: { Datepicker },
-  props:['selectedService'],
-  setup() {
+  props: ['selectedService'],
+  setup(props) {
     const showModal = ref(false);
     const date = ref(new Date());
     const time = ref({ hours: 8, minutes: 0 });
-    // const selectedItem = this?.selectedService; // Add this ref to hold the item booked
+    const selectedItem = ref(props.selectedService); // Define selectedItem as a ref
 
     const hours = ref([]);
     for (let i = 8; i <= 17; i++) {
@@ -52,22 +52,27 @@ export default {
       showModal.value = false;
     };
 
-    return { showModal, date, time, hours, saveDateTime };
+    return { showModal, date, time, hours, saveDateTime, selectedItem };
   },
-
+  computed: {
+    formattedBookingTime() {
+      return `${this.time.hours}:${this.time.minutes.toString().padStart(2, '0')}`;
+    },
+  },
   methods: {
     insertData() {
       this.$store.dispatch('addOrder', {
-        itemId:this.selectedService.itemId,
-        item: this.selectedService.itemName,
+        itemId: this.selectedItem.itemId, 
+        item: this.selectedItem.itemName, 
         bookingDate: this.date,
-        bookingTime: this.time,
-        totalPrice :+this.selectedService.amount
+        bookingTime: this.formattedBookingTime,
+        totalPrice: +this.selectedItem.amount 
       });
-    },
-  },
-};
+    }
+  }
+}
 </script>
+
 <style scoped>
 /* Modal Overlay */
 .modal {
