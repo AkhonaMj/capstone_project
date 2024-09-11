@@ -33,7 +33,7 @@ const getOrderByUserId = async (req, res) => {
 const addOrder = async (req, res) => {
   const { itemId, bookingDate, bookingTime, totalPrice } = req.body;
   const userId = req.userId; // Get userId from the verified token
-
+  
   if (!userId) {
     res.status(401).send("User is not authenticated");
     return;

@@ -32,6 +32,7 @@ const getOrderByUserDb = async (id) => {
 };
 
 const addOrderDb = async (userId, itemId, bookingDate, bookingTime, totalPrice) => {
+  bookingDate= bookingDate.split('T')[0]
     try {
       await pool.query(
         "INSERT INTO orders(userId, itemId, bookingDate, bookingTime, totalPrice) VALUES(?,?,?,?,?)",

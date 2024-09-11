@@ -49,7 +49,7 @@ const updateUserDb = async (firstName, lastName, userRole, emailAdd, passsword, 
 
 const loginUserDb = async (emailAdd) => {
    try {
-        let [[{password}]] = await pool.query("SELECT * FROM users WHERE emailAdd=?", [emailAdd]);
+        let [[password]] = await pool.query("SELECT * FROM users WHERE emailAdd=?", [emailAdd]);
         if (password.length === 0) {
             throw { status: 404, message: "User Not Found" };
         }

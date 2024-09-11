@@ -11,18 +11,20 @@ const checkUser = async (req, res, next) => {
     console.log(password);
 
     let user = await loginUserDb(emailAdd); // Assume this returns user object with `userId` and `hashedPassword`
+    // console.log(user);
     
     if (!user) {
       res.status(404).send("User not found");
       return;
     }
 
-    compare(password, user.hashedPassword, (err, result) => {
+    compare(password, user.password, (err, result) => {
       if (err) {
         res.status(500).send("Internal Server Error");
         return;
       }
-
+      console.log(result);
+      
       if (result === true) {
         let token = jwt.sign(
           { userId: user.userId, emailAdd: user.emailAdd }, 
@@ -32,6 +34,7 @@ const checkUser = async (req, res, next) => {
         console.log(token);
         res.cookie('token', token, { httpOnly: true }); 
         req.userId = user.userId; 
+        req.body.token = token
         next();
         return;
       }
@@ -51,13 +54,13 @@ const verifyAToken = (req, res, next) => {
     res.status(401).json({ message: 'Token is missing' });
     return;
   }
-
+  
   jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
     if (err) {
       res.status(403).json({ message: 'Token is invalid' });
       return;
     }
-    
+    // console.log(decoded);
     req.userId = decoded.userId; // Store userId in request object
     next();
   });
