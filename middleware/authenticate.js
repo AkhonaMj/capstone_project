@@ -4,32 +4,41 @@ import jwt from "jsonwebtoken";
 import { config } from "dotenv";
 
 config();
+
 const checkUser = async (req, res, next) => {
   try {
-    // ...
-    if (result === true) {
-      let token = jwt.sign(
-        { userId: user.userId, emailAdd: user.emailAdd }, 
-        process.env.SECRET_KEY,
-        { expiresIn: "1h" }
-      );
-      console.log(token);
-      res.cookie('token', token, { httpOnly: true }); 
-      // Create a new Axios instance with the token included in the headers
-      const axiosInstance = axios.create({
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      });
-      // You can use this Axios instance to make requests that include the token
-      // ...
-      req.userId = user.userId; 
-      req.body.token = token
-      next();
+    const { emailAdd, password } = req.body; 
+    console.log(password);
+
+    let user = await loginUserDb(emailAdd); 
+    
+    if (!user) {
+      res.status(404).send("User not found");
       return;
     }
-    // ...
+
+    compare(password, user.password, (err, result) => {
+      if (err) {
+        res.status(500).send("Internal Server Error");
+        return;
+      }
+      console.log(result);
+      
+      if (result === true) {
+        let token = jwt.sign(
+          { userId: user.userId, emailAdd: user.emailAdd }, 
+          process.env.SECRET_KEY,
+          { expiresIn: "1h" }
+        );
+        console.log(token);
+        res.cookie('token', token, { httpOnly: true }); 
+        req.userId = user.userId; 
+        req.body.token = token
+        next();
+        return;
+      }
+      res.status(401).send("Wrong password");
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -37,7 +46,8 @@ const checkUser = async (req, res, next) => {
 };
 
 const verifyAToken = (req, res, next) => {
-  const token = req.cookies.token;
+  let { cookie } = req.headers;
+  let token = cookie && cookie.split('=')[1];
   
   if (!token) {
     res.status(401).json({ message: 'Token is missing' });
@@ -49,7 +59,7 @@ const verifyAToken = (req, res, next) => {
       res.status(403).json({ message: 'Token is invalid' });
       return;
     }
-    req.userId = decoded.userId; // Store userId in request object
+    req.userId = decoded.userId; 
     next();
   });
 };
