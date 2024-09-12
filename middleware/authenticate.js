@@ -4,42 +4,32 @@ import jwt from "jsonwebtoken";
 import { config } from "dotenv";
 
 config();
-
 const checkUser = async (req, res, next) => {
   try {
-    const { emailAdd, password } = req.body; // Destructuring
-    console.log(password);
-
-    let user = await loginUserDb(emailAdd); // Assume this returns user object with `userId` and `hashedPassword`
-    // console.log(user);
-    
-    if (!user) {
-      res.status(404).send("User not found");
+    // ...
+    if (result === true) {
+      let token = jwt.sign(
+        { userId: user.userId, emailAdd: user.emailAdd }, 
+        process.env.SECRET_KEY,
+        { expiresIn: "1h" }
+      );
+      console.log(token);
+      res.cookie('token', token, { httpOnly: true }); 
+      // Create a new Axios instance with the token included in the headers
+      const axiosInstance = axios.create({
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
+      // You can use this Axios instance to make requests that include the token
+      // ...
+      req.userId = user.userId; 
+      req.body.token = token
+      next();
       return;
     }
-
-    compare(password, user.password, (err, result) => {
-      if (err) {
-        res.status(500).send("Internal Server Error");
-        return;
-      }
-      console.log(result);
-      
-      if (result === true) {
-        let token = jwt.sign(
-          { userId: user.userId, emailAdd: user.emailAdd }, 
-          process.env.SECRET_KEY,
-          { expiresIn: "1h" }
-        );
-        console.log(token);
-        res.cookie('token', token, { httpOnly: true }); 
-        req.userId = user.userId; 
-        req.body.token = token
-        next();
-        return;
-      }
-      res.status(401).send("Wrong password");
-    });
+    // ...
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
