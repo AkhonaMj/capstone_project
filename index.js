@@ -1,5 +1,6 @@
 import express from "express"
 import cors from "cors"
+import cookieParser from "cookie-parser" 
 import userRouter from "./routes/userRoutes.js"
 import itemRouter from "./routes/itemRoutes.js"
 import orderRouter from "./routes/orderRoutes.js"
@@ -20,6 +21,7 @@ app.use(cors({
   origin: "http://localhost:8080",
   credentials:true
 }))
+app.use(cookieParser()) 
 app.use(express.static('public'))
 app.use(express.json())
 app.use("/users",userRouter)
