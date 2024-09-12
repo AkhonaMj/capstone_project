@@ -17,10 +17,12 @@ app.use((req, res, next) => {
     res.header("Access-Control-Expose-Headers", "Authorization");
     next();
   })
-app.use(cors({
-  origin: "http://localhost:8080",
-  credentials:true
-}))
+app.use(cors(
+//   {
+//   origin: "http://localhost:8080",
+//   credentials:true
+// }
+))
 app.use(cookieParser()) 
 app.use(express.static('public'))
 app.use(express.json())
