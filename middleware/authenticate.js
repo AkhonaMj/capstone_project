@@ -47,8 +47,7 @@ const checkUser = async (req, res, next) => {
 };
 
 const verifyAToken = (req, res, next) => {
-  let { cookie } = req.headers;
-  let token = cookie && cookie.split('=')[1];
+  const token = req.cookies.token;
   
   if (!token) {
     res.status(401).json({ message: 'Token is missing' });
@@ -60,7 +59,6 @@ const verifyAToken = (req, res, next) => {
       res.status(403).json({ message: 'Token is invalid' });
       return;
     }
-    // console.log(decoded);
     req.userId = decoded.userId; // Store userId in request object
     next();
   });
