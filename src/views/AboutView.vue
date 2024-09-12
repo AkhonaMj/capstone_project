@@ -17,72 +17,71 @@
 
 <style scoped>
 .about {
-  background-color: #ddbea966; /* Matching background to the home page */
-  max-width: 800px; /* Keeps the width consistent */
-  margin: 70px auto; /* Center and add top margin */
-  padding: 20px; /* Add padding for spacing */
-  border-radius: 30px; /* Adjusted for mobile friendliness */
-  font-family: Arial, sans-serif; /* Use the same font */
-  text-align: center; /* Center-align text */
+  background-color: #ddbea966; 
+  max-width: 800px; 
+  margin: 70px auto; 
+  padding: 20px; 
+  border-radius: 30px;
+  font-family: Arial, sans-serif; 
+  text-align: center; 
 }
 
 .about-header {
-  font-size: 40px; /* Consistent header size */
-  color: black; /* Matching color */
-  margin-bottom: 20px; /* Space below header */
+  font-size: 40px; 
+  color: black; 
+  margin-bottom: 20px; 
 }
 
 .about-content {
-  padding: 20px; /* Reduced padding for responsiveness */
+  padding: 20px; 
 }
 
 .about-text {
-  font-size: 20px; /* Smaller text for better readability on mobile */
-  color: black; /* Consistent text color */
-  margin-bottom: 20px; /* Space between paragraphs */
-  font-family: 'Courier New', monospace; /* Matching font style */
+  font-size: 20px; 
+  color: black; 
+  margin-bottom: 20px; 
+  font-family: 'Courier New', monospace; 
 }
 
 strong {
-  color: #a53860; /* Emphasize important text with the button color */
+  color: #a53860; 
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .about {
-    padding: 15px; /* Reduce padding on smaller screens */
-    margin: 20px; /* Less margin for smaller screens */
-    border-radius: 20px; /* Adjust border radius for smaller screens */
+    padding: 15px; 
+    margin: 20px; 
+    border-radius: 20px; 
   }
 
   .about-header {
-    font-size: 28px; /* Smaller header size for smaller screens */
-    margin-bottom: 15px; /* Reduced space below header */
+    font-size: 28px; 
+    margin-bottom: 15px; 
   }
 
   .about-text {
-    font-size: 16px; /* Smaller text size for readability */
-    line-height: 1.4; /* Adjust line height for smaller screens */
+    font-size: 16px; 
+    line-height: 1.4; 
   }
 
   .about-content {
-    padding: 10px; /* Reduce padding for mobile */
+    padding: 10px; 
   }
 }
 
 @media (max-width: 480px) {
   .about {
-    padding: 10px; /* Even smaller padding for very small screens */
-    margin: 10px; /* Less margin for very small screens */
+    padding: 10px; 
+    margin: 10px; 
   }
 
   .about-header {
-    font-size: 24px; /* Smaller header size */
+    font-size: 24px; 
   }
 
   .about-text {
-    font-size: 14px; /* Adjust text size for small screens */
-    line-height: 1.5; /* Adjust line height for small screens */
+    font-size: 14px; 
+    line-height: 1.5; 
   }
 }
 </style>

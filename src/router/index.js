@@ -50,6 +50,11 @@ const routes = [
     path: '/items/:id',
     name: 'singleItem',
     component: () => import(/* webpackChunkName: "about" */ '../views/SingleItem.vue')
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ProfileView.vue')
   }
 ]
 

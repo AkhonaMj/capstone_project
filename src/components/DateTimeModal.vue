@@ -39,7 +39,7 @@ export default {
     const showModal = ref(false);
     const date = ref(new Date());
     const time = ref({ hours: 8, minutes: 0 });
-    const selectedItem = ref(props.selectedService); // Define selectedItem as a ref
+    const selectedItem = ref(props.selectedService); 
 
     const hours = ref([]);
     for (let i = 8; i <= 17; i++) {
@@ -87,14 +87,14 @@ export default {
   align-items: center;
 }
 
-/* Modal Dialog */
+
 .modal-dialog {
   max-width: 500px;
   margin: 1rem;
-  width: 100%; /* Ensure modal uses full width on smaller screens */
+  width: 100%; 
 }
 
-/* Modal Content */
+
 .modal-content {
   background-color: #fff;
   border: 1px solid #ddd;
@@ -102,7 +102,6 @@ export default {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Modal Header */
 .modal-header {
   padding: 1rem;
   border-bottom: 1px solid #ddd;
@@ -111,18 +110,15 @@ export default {
   align-items: center;
 }
 
-/* Modal Title */
 .modal-title {
   margin-bottom: 0;
-  font-size: 1.25rem; /* Adjust font size */
+  font-size: 1.25rem; 
 }
 
-/* Modal Body */
 .modal-body {
   padding: 1rem;
 }
 
-/* Modal Footer */
 .modal-footer {
   padding: 1rem;
   border-top: 1px solid #ddd;
@@ -130,43 +126,39 @@ export default {
   justify-content: flex-end;
 }
 
-/* Datepicker Container */
 .datepicker-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem; /* Space below the date picker */
+  margin-bottom: 1rem;
 }
 
-/* Datepicker Specific Styles */
 ::v-deep .vue3-datepicker {
-  width: 100%; /* Full width for better alignment */
-  max-width: 400px; /* Max width for larger screens */
+  width: 100%; 
+  max-width: 400px;
 }
 
 ::v-deep .vue3-datepicker__calendar {
-  font-size: 14px; /* Adjust font size for readability */
+  font-size: 14px; 
 }
 
 ::v-deep .vue3-datepicker__day {
-  padding: 0.5rem; /* Padding for day cells */
+  padding: 0.5rem; 
 }
 
 ::v-deep .vue3-datepicker__day--selected {
-  background-color: #a53860; /* Highlight selected date */
-  color: #fff; /* Text color for selected date */
+  background-color: #a53860; 
+  color: #fff; 
 }
 
 ::v-deep .vue3-datepicker__day--today {
-  border: 1px solid #a53860; /* Border for today's date */
+  border: 1px solid #a53860; 
 }
 
-/* Form Select */
 .form-select {
-  width: 100%; /* Full width for better alignment */
+  width: 100%; 
   margin-top: 1rem;
 }
 
-/* Button Styles */
 .btn {
   margin: 0 0.5rem;
 }

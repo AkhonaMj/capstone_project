@@ -32,7 +32,6 @@
           email: this.email,
           message: this.message
         })
-        // You can add your own logic here to send the form data to your server or API
       }
     }
   }

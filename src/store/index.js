@@ -20,10 +20,10 @@ export default createStore({
     setItems(state, payload) {
       state.items = payload;
     },
-    setItem(state, payload) {
-      console.log("Setting Item:", payload); // Log payload for debugging
+    setSingleItem(state, payload) {
+      console.log('Setting Item:', payload); 
       state.item = payload;
-    },
+  },
     setOrders(state, payload) {
       state.orders = payload;
     },
@@ -31,7 +31,7 @@ export default createStore({
       state.orders.push(order);
     },
     setUserId(state, userId) {
-      state.userId = userId; // Save userId in the Vuex store
+      state.userId = userId; 
     },
   },
   actions: {
@@ -49,30 +49,20 @@ export default createStore({
 
     async getSingleItem({ commit }, id) {
       try {
-
-        let response = await fetch(`https://capstone-project-bwdc.onrender.com/items/${id}`);
-        let data = await response.json();
-        // "[array of a single obj]"
-        console.log('Fetched Item:', data); // Log data for debugging
-        commit('setItem', data);
+          let response = await fetch(`https://capstone-project-bwdc.onrender.com/items/${id}`);
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          let data = await response.json();
+          console.log('Fetched Item:', data); 
+          if (Array.isArray(data)) {
+              data = data[0]; 
+          }
+          commit('setSingleItem', data); 
       } catch (error) {
-        console.error('Error fetching single item:', error);
+          console.error('Error fetching single item:', error);
       }
-    } ,
-
-    // async getSingleItem({ commit }, id) {
-    //   try {
-    //     const {
-    //       data
-    //     } = await axios.get(
-    //       `https://capstone-project-bwdc.onrender.com/items/${id}`
-    //     );
-    //     commit("setItem", data);
-    //     console.log(data)
-    //   } catch (error) {
-    //     console.warn(error);
-    //   }
-    // },
+  },
 
     async addOrder({ commit }, order) {
       console.log(order);
@@ -122,7 +112,7 @@ export default createStore({
         );
         cookies.set("token", data.token);
         if (data.token) {
-          commit("setUserId", data.userId); // Make sure userId is being saved
+          commit("setUserId", data.userId); 
           router.push({ name: "services" });
         }
       } catch (error) {

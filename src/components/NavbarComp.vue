@@ -52,4 +52,29 @@
   .nav-button:hover {
     background-color: #FFE8D6;
   }
+  .nav-button {
+  background-color: #a53860;
+  border: none;
+  padding: 10px 15px;
+  margin: 20px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333; 
+  text-decoration: none;
+  border-radius: 300px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.nav-button:hover {
+  background-color: #FFE8D6;
+}
+
+.nav-button:active,
+.nav-button:focus,
+.nav-button.router-link-exact-active { 
+  color: #333; 
+  background-color: #a53860; 
+}
+
+  
   </style>

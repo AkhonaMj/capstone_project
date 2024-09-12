@@ -1,15 +1,23 @@
 <template>
-  <div v-if="item">
+  <div v-if="item && Object.keys(item).length">
     <h2>{{ item.itemName }}</h2>
     <img :src="item.itemUrl" alt="Item Image" class="item-image" />
     <p><strong>Amount:</strong> {{ item.amount }}</p>
     <p><strong>Category:</strong> {{ item.category }}</p>
   </div>
+  <div v-else>
+    <p>Loading item details...</p>
+  </div>
 </template>
 
 <script>
 export default {
-  props: ['id'],
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
   computed: {
     item() {
       return this.$store.state.item;
@@ -17,11 +25,12 @@ export default {
   },
   methods: {
     fetchItem() {
-      this.$store.dispatch('getSingleItem', this.id);
+      this.$store.dispatch('getSingleItem', this.$route.params.id);
+
     }
   },
   mounted() {
-    this.fetchItem(); // Fetch item data when the component mounts
+    this.fetchItem();
   }
 }
 </script>
@@ -32,22 +41,3 @@ export default {
   height: auto;
 }
 </style>
-
-
-
-<!-- <style scoped>
-/* Your modal styles here */
-</style> -->
-
-  <style scoped>
-  .card-img-top {
-    height: 200px;
-    object-fit: cover;
-  }
-  .datepicker-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-  </style>
-  

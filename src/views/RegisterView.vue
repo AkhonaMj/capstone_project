@@ -54,10 +54,8 @@ export default {
           emailAdd: this.emailAdd,
           password: this.password
         });
-        // Handle successful registration
-        this.$router.push('/login'); // Redirect to login page
+        this.$router.push('/login'); 
       } catch (error) {
-        // Handle registration errors
         console.error(error);
         alert('Registration failed. Please try again.');
       }

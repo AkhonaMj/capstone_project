@@ -27,7 +27,7 @@ export default {
     async fetchOrders() {
       try {
         const token = localStorage.getItem('token');
-        const userId = 1; // Fetch the user ID from a store or context
+        const userId = 1; 
         const response = await axios.get(`/orders/getOrderByUser/${userId}`, {
           headers: {
             'Authorization': `Bearer ${token}`
