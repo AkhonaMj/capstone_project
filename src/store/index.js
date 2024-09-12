@@ -76,17 +76,16 @@ export default createStore({
 
     async addOrder({ commit }, order) {
       console.log(order);
-
+    
       try {
-        const response = await axios.post(
+        const response = await axiosInstance.post(
           "https://capstone-project-bwdc.onrender.com/orders/addOrder",
-          order,
-          { withCredentials: true }
+          order
         );
-
+    
         const newOrder = response.data;
         console.log(newOrder);
-
+    
         commit("addOrder", newOrder);
       } catch (error) {
         console.error(
