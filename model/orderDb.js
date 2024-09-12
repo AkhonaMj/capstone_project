@@ -32,18 +32,18 @@ const getOrderByUserDb = async (id) => {
 };
 
 const addOrderDb = async (userId, itemId, bookingDate, bookingTime, totalPrice) => {
-  bookingDate= bookingDate.split('T')[0]
-    try {
-      await pool.query(
-        "INSERT INTO orders(userId, itemId, bookingDate, bookingTime, totalPrice) VALUES(?,?,?,?,?)",
-        [userId, itemId, bookingDate, bookingTime, totalPrice]
-      );
-    } catch (error) {
-      console.error("Error adding order:", error);
-      throw error;
-    }
-  };
-  
+  bookingDate = bookingDate.split('T')[0];
+  console.log("Parameters:", { userId, itemId, bookingDate, bookingTime, totalPrice }); // Log the parameters
+  try {
+    await pool.query(
+      "INSERT INTO orders(userId, itemId, bookingDate, bookingTime, totalPrice) VALUES(?,?,?,?,?)",
+      [userId, itemId, bookingDate, bookingTime, totalPrice]
+    );
+  } catch (error) {
+    console.error("Error adding order:", error);
+    throw error;
+  }
+};
 
 const deleteOrderDb = async (id) => {
   try {
