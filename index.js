@@ -5,7 +5,6 @@ import userRouter from "./routes/userRoutes.js"
 import itemRouter from "./routes/itemRoutes.js"
 import orderRouter from "./routes/orderRoutes.js"
 
-
 let port = process.env.PORT || 2001
 const app = express()
 app.use(express.static('public'))

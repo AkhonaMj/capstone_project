@@ -40,8 +40,8 @@ const getUsers = async (req, res) => {
   
 const updateUser = async (req, res) => {
     try {
-      let { firstName, lastName, userRole, emailAdd, passsword, userProfile } = req.body
-      await updateUserDb(firstName, lastName, userRole, emailAdd, passsword, userProfile,req.params.id)
+      let { firstName, lastName, userRole, emailAdd, password, userProfile } = req.body
+      await updateUserDb(firstName, lastName, userRole, emailAdd, password, userProfile,req.params.id)
       res.status(200).send("User updated successfully")
     } catch (err) {
       console.error(err)
