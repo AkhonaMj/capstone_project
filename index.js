@@ -10,7 +10,7 @@ const app = express()
 app.use(express.static('public'))
 app.use(express.json())
 app.use(cors({
-  origin: "http://localhost:8080",
+  origin: "https://capstone-50858.firebaseapp.com/",
   credentials:true
 }))
 app.use(cookieParser()) 
