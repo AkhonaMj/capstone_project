@@ -122,6 +122,19 @@ export default createStore({
         );
       }
     },
+
+    async getUserProfile(){
+      try {
+        let response = await fetch(
+          `https://capstone-project-bwdc.onrender.com/users/${id}`
+        );
+        let convertedData = await response.json();
+        commit("setUserId", convertedData);
+      } catch (error) {
+        console.error("API Error:", error);
+      }
+
+    }
   },
   modules: {},
 });

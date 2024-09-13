@@ -38,7 +38,7 @@
                     <h2 class="card-title">{{ item.itemName }}</h2>
                     <p class="card-amount">amount: {{ item.amount }}</p>
                     <DateTimeModal :selectedService="item" />
-                    <router-link :to="{ name: 'singleItem', params: { id: item.itemId } }">View More</router-link>
+                    <p><router-link :to="{ name: 'singleItem', params: { id: item.itemId } }">View More</router-link></p>
 
                   </div>
                 </div>
@@ -95,6 +95,7 @@ export default {
   }
 };
 </script>
+
 <style scoped>
 .form-control,
 .form-select {
@@ -151,6 +152,9 @@ export default {
   font-size: 18px;
   color: #a53860;
   margin-bottom: 15px;
+}
+a{
+  color:#a53860 ;
 }
 
 @media (max-width: 768px) {

@@ -99,7 +99,7 @@ export default {
   button[type="submit"] {
     width: 100%;
     height: 40px;
-    background-color: #CB997E;
+    background-color: #9f375d;
     color: #fff;
     padding: 10px;
     border: none;
@@ -108,13 +108,11 @@ export default {
     margin: auto;
   }
   
-  button[type="submit"]:hover {
-    background-color:CB997E;
-  }
+
   
   a {
     text-decoration: none;
-    color: #CB997E;
+    color: #9f375d;
   }
   
   a:hover {

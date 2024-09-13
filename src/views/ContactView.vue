@@ -71,8 +71,8 @@
   button[type="submit"] {
     width: 100%;
     height: 40px;
-    background-color: #CB997E;
-    color: #fff;
+    background-color: #9f375d;
+    color: #000000;
     padding: 10px;
     border: none;
     border-radius: 5px;
