@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style scoped>
-/* Modal Overlay */
+
 .modal {
   position: fixed;
   top: 0;
